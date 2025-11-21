@@ -112,6 +112,7 @@
             DistanceKm = distance;
             Occupancy = occupancy;
             Plane = plane;
+            Plane.AddFlight();
             CrewMembers = crewMembers;
         }
     }

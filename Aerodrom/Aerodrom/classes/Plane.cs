@@ -64,9 +64,15 @@ namespace Aerodrom.classes
         {
             Name = name;
             ProductionYear = productionYear;
-            NumberOfFlights = numberOfFlights;
+            NumberOfFlights = 0;
             Capacity = capacity;
             Categories = categories;
+        }
+
+        public void AddFlight()
+        {
+            NumberOfFlights++;
+            Touch()
         }
     }
 }
