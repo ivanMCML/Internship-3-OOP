@@ -37,42 +37,26 @@ namespace Aerodrom.classes
             }
         }
 
-        private int _capacity;
-        public int Capacity
+        private Dictionary<Category, int> _categoryCapacities = new();
+        public Dictionary<Category, int> CategoryCapacities
         {
-            get => _capacity;
-            set
-            {
-                _capacity = value;
-                Touch();
-            }
+            get => _categoryCapacities;
+            set { _categoryCapacities = value; Touch(); }
         }
 
-        private List<Category> _categories = new();
-        public List<Category> Categories
-        {
-            get => _categories;
-            set
-            {
-                _categories = value;
-                Touch();
-            }
-        }
-
-        public Plane(string name, int productionYear, int numberOfFlights, int capacity, List<Category> categories)
+        public Plane(string name, int productionYear, int numberOfFlights, Dictionary<Category, int> categoryCapaccities)
             : base()
         {
             Name = name;
             ProductionYear = productionYear;
             NumberOfFlights = 0;
-            Capacity = capacity;
-            Categories = categories;
+            CategoryCapacities = categoryCapaccities;
         }
 
         public void AddFlight()
         {
             NumberOfFlights++;
-            Touch()
+            Touch();
         }
     }
 }

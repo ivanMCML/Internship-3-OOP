@@ -1,4 +1,6 @@
-﻿namespace Aerodrom.classes
+﻿using Aerodrom.enums;
+
+namespace Aerodrom.classes
 {
     public class Flight : BaseEntity
     {
@@ -68,13 +70,13 @@
             }
         }
 
-        private int _occupancy;
-        public int Occupancy
+        private Dictionary<Category, int> _categoryOccupancy = new();
+        public Dictionary<Category, int> CategoryOccupancy
         {
-            get => _occupancy;
+            get => _categoryOccupancy;
             set
             {
-                _occupancy = value;
+                _categoryOccupancy = value;
                 Touch();
             }
         }
@@ -102,7 +104,7 @@
         }
 
         public Flight(string name, DateTime departureTime, DateTime arrivalTime, string from, string to,
-                      double distance, int occupancy, Plane plane, List<CrewMember> crewMembers) : base()
+                      double distance, Dictionary<Category, int> categoryOccupancy, Plane plane, List<CrewMember> crewMembers) : base()
         {
             Name = name;
             DepartureTime = departureTime;
@@ -110,10 +112,36 @@
             From = from;
             To = to;
             DistanceKm = distance;
-            Occupancy = occupancy;
+            CategoryOccupancy = categoryOccupancy;
             Plane = plane;
             Plane.AddFlight();
             CrewMembers = crewMembers;
+        }
+
+        public void PrintFlightForPassenger()
+        {
+            Console.WriteLine($"{Id} - {Name} - {DepartureTime.Date} - {ArrivalTime.Date} - {DistanceKm} - {ArrivalTime - DepartureTime}");
+        }
+
+        public Dictionary<Category, int> GetFreeSeatsPerCategory()
+        {
+            var result = new Dictionary<Category, int>();
+
+            foreach (var category in Plane.CategoryCapacities)
+            {
+                int max = category.Value;
+                int occupied = CategoryOccupancy.ContainsKey(category.Key) ? CategoryOccupancy[category.Key] : 0;
+
+                int free = max - occupied;
+                result[category.Key] = free;
+            }
+
+            return result;
+        }
+
+        public int GetTotalFreeSeats()
+        {
+            return GetFreeSeatsPerCategory().Values.Sum();
         }
     }
 }
