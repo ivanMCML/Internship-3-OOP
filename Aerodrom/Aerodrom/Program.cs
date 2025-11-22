@@ -47,9 +47,9 @@ namespace Aerodrom
                     case 2:
                         flightMenu(flights, planes, crewMembers, crews);
                         break;
-                    //case 3:
-                    //    planeMenu();
-                    //    break;
+                    case 3:
+                        planeMenu(planes);
+                        break;
                     //case 4:
                     //    crewMenu(); 
                     //    break;
@@ -131,6 +131,42 @@ namespace Aerodrom
                             FlightHelper.DeleteFlight(flights, passengers);
                             break;
                         case 6:
+                            return;
+                    }
+                }
+            }
+        }
+
+
+        public static void planeMenu(List<Plane> planes, List<Flight> flights)
+        {
+
+            while (true)
+            {
+                Console.WriteLine("\nLETOVI");
+                Console.WriteLine("1 - Prikazi avione");
+                Console.WriteLine("2 - Dodaj avion");
+                Console.WriteLine("3 - Pretrazi avione");
+                Console.WriteLine("4 - Izbrisi avion");
+                Console.WriteLine("5 - Povratak");
+                Console.Write("\nOdabir: ");
+                if (int.TryParse(Console.ReadLine(), out int answer) && answer > 0 && answer < 7)
+                {
+                    switch (answer)
+                    {
+                        case 1:
+                            PlaneHelper.DisplayPlanes(planes);
+                            break;
+                        case 2:
+                            PlaneHelper.AddPlane(planes);
+                            break;
+                        case 3:
+                            PlaneHelper.SearchPlanes(planes);
+                            break;
+                        case 4:
+                            PlaneHelper.DeletePlane(planes, flights);
+                            break;
+                        case 5:
                             return;
                     }
                 }
