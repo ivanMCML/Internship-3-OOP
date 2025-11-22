@@ -155,7 +155,7 @@ namespace Aerodrom.classes
             string? to;
             do
             {
-                Console.Write("Mjesto polaska: ");
+                Console.Write("Mjesto dolaska: ");
                 to = Console.ReadLine();
             } while (string.IsNullOrWhiteSpace(to));
 
@@ -173,6 +173,7 @@ namespace Aerodrom.classes
             Console.WriteLine("Vrijeme dolaska:");
             var arrivalTime = Helpers.GetDateTime();
 
+            Console.WriteLine("\nOdaberi avion:");
             Plane airplane = PlaneHelper.ChoosePlane(planes);
             
             var newCrew = CrewHelper.ChooseCrew(crews);

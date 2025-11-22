@@ -1,4 +1,5 @@
 ﻿using Aerodrom.enums;
+using System.Numerics;
 
 namespace Aerodrom.classes
 {
@@ -50,22 +51,13 @@ namespace Aerodrom.classes
             Console.WriteLine("\nDostupne stjuardese:");
             for (int i = 0; i < stewardesses.Count; i++)
                 Console.WriteLine($"#{i + 1} {stewardesses[i].FirstName} {stewardesses[i].LastName}");
-
-            Console.Write("Koliko stjuardesa želiš (1 ili 2)? ");
-            int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 2)
-                Console.Write("Unesi 1 ili 2: ");
-
             
             Console.WriteLine($"\nOdaberi prvu stjuardesu:");
             var stewardess1 = stewardesses[Helpers.ChooseIndex(stewardesses.Count, "stjuardesu")];
 
-            CrewMember? stewardess2 = null;
-            if (choice == 2)
-            {
-                Console.WriteLine($"\nOdaberi drugu stjuardesu:");
-                stewardess2 = stewardesses[Helpers.ChooseIndex(stewardesses.Count, "stjuardesu")];
-            }
+            Console.WriteLine($"\nOdaberi drugu stjuardesu:");
+            var stewardess2 = stewardesses[Helpers.ChooseIndex(stewardesses.Count, "stjuardesu")];
+
 
             string? check;
             do
@@ -96,6 +88,74 @@ namespace Aerodrom.classes
                 Console.Write($"#{i + 1} ");
                 crews[i].PrintCrew();
             }
+        }
+
+        public static void AddCrewMember(List<CrewMember> crewMembers)
+        {
+            string? firstName;
+            do
+            {
+                Console.Write("Ime: ");
+                firstName = Console.ReadLine();
+            } while (string.IsNullOrWhiteSpace(firstName));
+
+            string? lastName;
+            do
+            {
+                Console.Write("Prezime: ");
+                lastName = Console.ReadLine();
+            } while (string.IsNullOrWhiteSpace(lastName));
+
+            Console.WriteLine("Datum rodjenja");
+            var dateOfBirth = Helpers.GetDateOnly();
+
+            char genderC = ' ';
+            do
+            {
+                Console.Write("Spol: ");
+                genderC = char.ToUpper(Console.ReadKey().KeyChar);
+                Console.WriteLine();
+            } while (genderC != 'M' && genderC != 'F');
+
+            Gender gender;
+            if (genderC == 'M')
+                gender = Gender.M;
+            else gender = Gender.F;
+
+            CrewMemberType position;
+            while (true)
+            {
+                Console.WriteLine("\nPozicija");
+                Console.WriteLine("1 - Pilot");
+                Console.WriteLine("2 - Kopilot");
+                Console.WriteLine("3 - Stjuardesa/stujart");
+                Console.Write("\nOdabir: ");
+                if (int.TryParse(Console.ReadLine(), out int answer) && answer > 0 && answer < 4)
+                {
+                    if (answer == 1)
+                        position = CrewMemberType.Pilot;
+                    else if (answer == 2)
+                        position = CrewMemberType.Copilot;
+                    else position = CrewMemberType.Stewardess;
+                    
+                    break;
+                }
+            }
+
+            string? check;
+            do
+            {
+                Console.WriteLine("\nJesi li siguran da zelis dodati osobu?(da/ne)");
+                check = Console.ReadLine().ToLower();
+            } while (check != "da" && check != "ne");
+            if (check == "da")
+                crewMembers.Add(new CrewMember(position, firstName, lastName, dateOfBirth, gender));
+            else
+            {
+                Console.WriteLine("\nOsoba nije dodana");
+                return;
+            }
+            Console.WriteLine("\nOsoba uspjesno dodana");
         }
     }
 }

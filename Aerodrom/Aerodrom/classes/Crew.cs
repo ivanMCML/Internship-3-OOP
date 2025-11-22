@@ -49,7 +49,7 @@ namespace Aerodrom.classes
         }
 
 
-        private CrewMember? _stewardess2;
+        private CrewMember _stewardess2;
         public CrewMember Stewardess2
         {
             get => _stewardess2;
@@ -60,21 +60,18 @@ namespace Aerodrom.classes
             }
         }
 
-        public Crew(string name, CrewMember pilot, CrewMember copilot, CrewMember stewardess1, CrewMember? stewardess2) : base()
+        public Crew(string name, CrewMember pilot, CrewMember copilot, CrewMember stewardess1, CrewMember stewardess2) : base()
         {
             Name = name;
             Pilot = pilot;
             Copilot = copilot;
             Stewardess1 = stewardess1;
+            Stewardess2 = stewardess2;
 
             pilot.AssigneMember();
             copilot.AssigneMember();
             stewardess1.AssigneMember();
-            if (stewardess2 != null)
-            {
-                stewardess2.AssigneMember();
-                Stewardess2 = stewardess2;
-            }
+            stewardess2.AssigneMember();
         }
 
         public void PrintCrew()
@@ -83,8 +80,7 @@ namespace Aerodrom.classes
             Pilot.PrintCrewMember();
             Copilot.PrintCrewMember();
             Stewardess1.PrintCrewMember();
-            if (Stewardess2 != null)
-                Stewardess2.PrintCrewMember();
+            Stewardess2.PrintCrewMember();
         }
     }
 }
