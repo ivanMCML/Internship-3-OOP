@@ -41,7 +41,11 @@ namespace Aerodrom.classes
         public Dictionary<Category, int> CategoryCapacities
         {
             get => _categoryCapacities;
-            set { _categoryCapacities = value; Touch(); }
+            set 
+            { 
+                _categoryCapacities = value; 
+                Touch(); 
+            }
         }
 
         public Plane(string name, int productionYear, int numberOfFlights, Dictionary<Category, int> categoryCapaccities)
@@ -57,6 +61,11 @@ namespace Aerodrom.classes
         {
             NumberOfFlights++;
             Touch();
+        }
+
+        public void printPlane()
+        {
+            Console.WriteLine($"{Id} - {Name} - {ProductionYear} - {NumberOfFlights}");
         }
     }
 }

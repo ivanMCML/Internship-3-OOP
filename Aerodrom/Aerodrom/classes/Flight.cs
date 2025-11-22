@@ -120,7 +120,7 @@ namespace Aerodrom.classes
 
         public void PrintFlightForPassenger()
         {
-            Console.WriteLine($"{Id} - {Name} - {DepartureTime.Date} - {ArrivalTime.Date} - {DistanceKm} - {ArrivalTime - DepartureTime}");
+            Console.WriteLine($"{Id} - {Name} - {DepartureTime.Date} - {ArrivalTime.Date} - {DistanceKm} - {GetTravelTime()}");
         }
 
         public Dictionary<Category, int> GetFreeSeatsPerCategory()
@@ -142,6 +142,11 @@ namespace Aerodrom.classes
         public int GetTotalFreeSeats()
         {
             return GetFreeSeatsPerCategory().Values.Sum();
+        }
+
+        public TimeSpan GetTravelTime()
+        {
+            return ArrivalTime - DepartureTime;
         }
     }
 }

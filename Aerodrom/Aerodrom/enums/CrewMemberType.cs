@@ -4,7 +4,6 @@
     {
         Pilot, 
         Copilot,
-        Stewardess,
-        Steward
+        Stewardess
     }
 }
