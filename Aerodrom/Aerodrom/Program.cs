@@ -98,7 +98,7 @@ namespace Aerodrom
 
 
 
-        public static void flightMenu(List<Flight> flights, List<Plane> planes, List<CrewMember> crewMembers, List<Crew> crews)
+        public static void flightMenu(List<Flight> flights, List<Plane> planes, List<CrewMember> crewMembers, List<Crew> crews, List<Passenger> passengers)
         {
 
             while (true)
@@ -125,9 +125,12 @@ namespace Aerodrom
                             FlightHelper.SearchFlights(flights);
                             break;
                         case 4:
-                            //crewMenu();
+                            FlightHelper.EditFlight(flights, crews);
                             break;
                         case 5:
+                            FlightHelper.DeleteFlight(flights, passengers);
+                            break;
+                        case 6:
                             return;
                     }
                 }

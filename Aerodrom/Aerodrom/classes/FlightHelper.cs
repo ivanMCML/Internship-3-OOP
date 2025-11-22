@@ -1,4 +1,5 @@
 ﻿using Aerodrom.enums;
+using System.Xml.Linq;
 
 namespace Aerodrom.classes
 {
@@ -198,6 +199,115 @@ namespace Aerodrom.classes
             }
         }
 
+        public static void EditFlight(List<Flight> flights, List<Crew> crews)
+        {
+            Console.Write("Unesi ID leta za uređivanje: ");
+            string id = Console.ReadLine().Trim();
+
+            if (!Guid.TryParse(id, out Guid flightId))
+            {
+                Console.WriteLine("\nNeispravan format GUID-a.");
+                return;
+            }
+
+            Flight flight = flights.FirstOrDefault(f => f.Id == flightId);
+
+            if (flight == null)
+            {
+                Console.WriteLine("\nLet nije pronadjen.");
+                return;
+            }
+
+            flight.PrintFlightForPassenger();
+
+            Console.WriteLine("1 - Promijeni vrijeme polaska");
+            Console.WriteLine("2 - Promijeni vrijeme dolaska");
+            Console.WriteLine("3 - Promjeni posadu");
+            Console.Write("Odabir: ");
+
+            if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 3)
+            {
+                Console.WriteLine("\nNeispravan odabir.");
+                return;
+            }
+
+            if (choice == 1)
+            {
+                Console.WriteLine("\nNovo vrijeme polaska:");
+                flight.DepartureTime = Helpers.GetDateTime();
+                Console.WriteLine("Vrijeme polaska promijenjeno.");
+            }
+
+            if (choice == 2)
+            {
+                Console.WriteLine("\nUnesi novo vrijeme dolaska:");
+                flight.ArrivalTime = Helpers.GetDateTime();
+                Console.WriteLine("Vrijeme dolaska promijenjeno.");
+            }
+
+            if (choice == 3)
+            {
+                Console.WriteLine("\nOdaberi novu posadu:");
+                flight.Crew = CrewHelper.ChooseCrew(crews);
+                Console.WriteLine("Posada uspjesno promijenjena.");
+            }
+        }
+
+        public static void DeleteFlight(List<Flight> flights, List<Passenger> passengers)
+        {
+            Console.Write("ID leta za brisanje: ");
+            string id = Console.ReadLine().Trim();
+
+            if (!Guid.TryParse(id, out Guid flightId))
+            {
+                Console.WriteLine("\nNeispravan format GUID-a.");
+                return;
+            }
+
+            Flight flight = flights.FirstOrDefault(f => f.Id == flightId);
+
+            if (flight == null)
+            {
+                Console.WriteLine("\nLet nije pronadjen.");
+                return;
+            }
+
+            flight.PrintFlightForPassenger();
+
+            if (flight.DepartureTime <= DateTime.Now.AddHours(24))
+            {
+                Console.WriteLine("\nLet se ne moze izbrisat jer krece za manje od 24 sata.");
+                return;
+            }
+
+            int freeSeats = flight.GetTotalFreeSeats();
+            int totalCapacity = flight.Plane.CategoryCapacities.Values.Sum();
+
+            if ((freeSeats * 2) <= totalCapacity)
+            {
+                Console.WriteLine("\nLet se ne moze obrisati jer ima 50% ili vise popunjenosti.");
+                return;
+            }
+
+            string? check;
+            do
+            {
+                Console.WriteLine("\nJesi li siguran da zelis obrisat let?(da/ne)");
+                check = Console.ReadLine().ToLower();
+            } while (check != "da" && check != "ne");
+            if (check == "ne")
+            {            
+                Console.WriteLine("\nBrisanje ponisteno.");
+                return;
+            }
+
+            foreach (var passenger in passengers)
+                passenger.Flights.RemoveAll(f => f.Id == flight.Id);
+
+            flights.Remove(flight);
+
+            Console.WriteLine("\nLet uspjesno obrisan");
+        }
 
     }
 }

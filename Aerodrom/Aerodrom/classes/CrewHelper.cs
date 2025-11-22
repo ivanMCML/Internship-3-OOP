@@ -65,11 +65,21 @@ namespace Aerodrom.classes
             {
                 Console.WriteLine($"\nOdaberi drugu stjuardesu:");
                 stewardess2 = stewardesses[Helpers.ChooseIndex(stewardesses.Count, "stjuardesu")];
-
             }
 
-            var newCrew = new Crew(name, pilot, copilot, stewardess1, stewardess2);
-            crews.Add(newCrew);
+            string? check;
+            do
+            {
+                Console.WriteLine("\nJesi li siguran da zelis kreirati posadu?(da/ne)");
+                check = Console.ReadLine().ToLower();
+            } while (check != "da" && check != "ne");
+            if (check == "da")
+            {
+                var newCrew = new Crew(name, pilot, copilot, stewardess1, stewardess2);
+                crews.Add(newCrew);
+                return;
+            }
+            Console.WriteLine("\nPosada nije dodana");
         }
 
         public static Crew ChooseCrew(List<Crew>crews)
