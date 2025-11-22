@@ -26,11 +26,21 @@ namespace Aerodrom.classes
             }
         }
 
-        public CrewMember(CrewMemberType position, string firstName, string lastName, int yearOfBirth, Gender gender)
-            : base(firstName, lastName, yearOfBirth, gender)
+        public CrewMember(CrewMemberType position, string firstName, string lastName, DateOnly dateOfBirth, Gender gender)
+            : base(firstName, lastName, dateOfBirth, gender)
         {
             Position = position;
             IsAssigned = false;
+        }
+
+        public void AssigneMember()
+        {
+            IsAssigned = true;
+        }
+
+        public void PrintCrewMember()
+        {
+            Console.WriteLine($"{FirstName} - {LastName} - {Position} - {Gender} - {DateOfBirth}");
         }
     }
 }

@@ -35,8 +35,8 @@
             }
         }
 
-        public Passenger(string userName, string password, List<Flight> flights, string firstName, string lastName, int yearOfBirth, Gender gender)
-            : base(firstName, lastName, yearOfBirth, gender)
+        public Passenger(string userName, string password, List<Flight> flights, string firstName, string lastName, DateOnly dateOfBirth, Gender gender)
+            : base(firstName, lastName, dateOfBirth, gender)
         {
             UserName = userName;
             Password = password;

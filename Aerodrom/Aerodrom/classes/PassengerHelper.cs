@@ -33,14 +33,9 @@
                 gender = Gender.M;
             else gender = Gender.F;
 
-            int year;
-            while (true)
-            {
-                Console.Write("Godina rođenja: ");
-                if (int.TryParse(Console.ReadLine(), out year) && year <= DateTime.Now.Year)
-                    break;
-            }
-
+            Console.WriteLine("Datum rodjenja");
+            DateOnly dateOfBirth = Helpers.GetDateOnly();
+            
             string? email;
             do
             {
@@ -68,7 +63,7 @@
             } while (check != "da" && check != "ne");
             if (check == "da")
             {
-                var p = new Passenger(email, password, new List<Flight> { }, name, surname, year, gender);
+                var p = new Passenger(email, password, new List<Flight> { }, name, surname, dateOfBirth, gender);
                 passengers.Add(p);
                 Console.WriteLine("\nRegistracija uspjesna");
                 LoggedMenu(flights, passengers, p);

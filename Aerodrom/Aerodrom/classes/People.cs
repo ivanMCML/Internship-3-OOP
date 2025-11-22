@@ -24,13 +24,13 @@
             }
         }
 
-        private int _yearOfBirth;
-        public int YearOfBirth
+        private DateOnly _dateOfBirth;
+        public DateOnly DateOfBirth
         {
-            get => _yearOfBirth;
+            get => _dateOfBirth;
             set
             {
-                _yearOfBirth = value;
+                _dateOfBirth = value;
                 Touch();
             }
         }
@@ -46,12 +46,12 @@
             }
         }
 
-        public People(string firstName, string lastName, int yearOfBirth, Gender gender)
+        public People(string firstName, string lastName, DateOnly dateOfBirth, Gender gender)
             : base()
         {
             FirstName = firstName;
             LastName = lastName;
-            YearOfBirth = yearOfBirth;
+            DateOfBirth = dateOfBirth;
             Gender = gender;
         }
     }

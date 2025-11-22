@@ -134,7 +134,7 @@ namespace Aerodrom.classes
                 flight.PrintFlightForPassenger();
         }
 
-        public static void AddFlight(List<Flight> flights, List<Plane> planes, List<CrewMember> crew)
+        public static void AddFlight(List<Flight> flights, List<Plane> planes, List<CrewMember> crewMembers, List<Crew> crews)
         {
             string? name;
 
@@ -173,13 +173,8 @@ namespace Aerodrom.classes
             var arrivalTime = Helpers.GetDateTime();
 
             Plane airplane = PlaneHelper.ChoosePlane(planes);
-
-            var newCrew = CrewHelper.ChooseCrewMembers(crew);
-            if(newCrew.Count() < 4)
-            {
-                Console.WriteLine("Nema dovoljno članova posade");
-                return;
-            }
+            
+            var newCrew = CrewHelper.ChooseCrew(crews);
 
             var occupacy = new Dictionary<Category, int>();
             foreach (var c in airplane.CategoryCapacities)

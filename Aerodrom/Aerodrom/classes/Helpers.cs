@@ -71,5 +71,42 @@
             }
         }
 
+        public static DateOnly GetDateOnly()
+        {
+
+            int year;
+            while (true)
+            {
+                Console.Write("Godina: ");
+                if (int.TryParse(Console.ReadLine(), out year))
+                    break;
+                Console.WriteLine("\nNeispravan unos godine.");
+            }
+
+            int month;
+            while (true)
+            {
+                Console.Write("Mjesec: ");
+                if (int.TryParse(Console.ReadLine(), out month) && month >= 1 && month <= 12)
+                    break;
+                Console.WriteLine("\nNeispravan unos mjeseca.");
+            }
+
+            int day;
+            while (true)
+            {
+                Console.Write("Dan: ");
+                if (int.TryParse(Console.ReadLine(), out day))
+                {
+                    if (day >= 1 && day <= DateTime.DaysInMonth(year, month))
+                        break;
+                }
+                Console.WriteLine("\nNeispravan unos dana.");
+            }
+
+            return new DateOnly(year, month, day);
+        }
+
+
     }
 }

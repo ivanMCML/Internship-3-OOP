@@ -10,30 +10,30 @@ namespace Aerodrom
         static void Main(string[] args)
         {
 
-            var crew = new List<CrewMember>
-            {
-                new CrewMember(enums.CrewMemberType.Pilot, "Josip", "Pavic", 1990, Gender.M),
-                new CrewMember(enums.CrewMemberType.Copilot, "Ana", "Letica", 1994, Gender.F),
+            //var crew = new List<CrewMember>
+            //{
+            //    new CrewMember(enums.CrewMemberType.Pilot, "Josip", "Pavic", 1990, Gender.M),
+            //    new CrewMember(enums.CrewMemberType.Copilot, "Ana", "Letica", 1994, Gender.F),
         
-            };
+            //};
 
-            var planes = new List<Plane>
-            {
-                new Plane("ciro", 1980, 0, new Dictionary<Category, int>{ { enums.Category.standard, 80}, { enums.Category.business, 20 } })
-            };
+            //var planes = new List<Plane>
+            //{
+            //    new Plane("ciro", 1980, 0, new Dictionary<Category, int>{ { enums.Category.standard, 80}, { enums.Category.business, 20 } })
+            //};
 
-            var flights = new List<Flight>
-            {
-                new Flight("Prvi Let", new DateTime(2025, 12, 12, 9, 10, 0),
-                new DateTime(2025, 12, 12, 11, 54, 00), "Split", "Zagreb", 500, new Dictionary<Category, int>{{ enums.Category.standard, 0}, { enums.Category.business, 0 } },
-                planes[0], new List<CrewMember>{crew[0], crew[1]})
-            };
+            //var flights = new List<Flight>
+            //{
+            //    new Flight("Prvi Let", new DateTime(2025, 12, 12, 9, 10, 0),
+            //    new DateTime(2025, 12, 12, 11, 54, 00), "Split", "Zagreb", 500, new Dictionary<Category, int>{{ enums.Category.standard, 0}, { enums.Category.business, 0 } },
+            //    planes[0], new List<CrewMember>{crew[0], crew[1]})
+            //};
 
-            var passengers = new List<Passenger>
-            {
-                new Passenger("ante04@gmail.com", "to1999", new List<Flight>{flights[0]},
-                "Ante", "Delic", 1999, Gender.M)
-            };
+            //var passengers = new List<Passenger>
+            //{
+            //    new Passenger("ante04@gmail.com", "to1999", new List<Flight>{flights[0]},
+            //    "Ante", "Delic", 1999, Gender.M)
+            //};
 
             while (true)
             {
@@ -45,13 +45,13 @@ namespace Aerodrom
                         passengerMenu(flights, passengers);
                         break;
                     case 2:
-                        flightMenu(flights, planes, crew);
+                        flightMenu(flights, planes, crewMembers, crews);
                         break;
                     //case 3:
                     //    planeMenu();
                     //    break;
                     //case 4:
-                    //    crewMenu();
+                    //    crewMenu(); 
                     //    break;
                     case 5:
                         return;
@@ -98,7 +98,7 @@ namespace Aerodrom
 
 
 
-        public static void flightMenu(List<Flight> flights, List<Plane> planes, List<CrewMember> crew)
+        public static void flightMenu(List<Flight> flights, List<Plane> planes, List<CrewMember> crewMembers, List<Crew> crews)
         {
 
             while (true)
@@ -119,7 +119,7 @@ namespace Aerodrom
                             FlightHelper.DisplayFlights(flights);
                             break;
                         case 2:
-                            FlightHelper.AddFlight(flights, planes, crew);
+                            FlightHelper.AddFlight(flights, planes, crewMembers, crews);
                             break;
                         case 3:
                             FlightHelper.SearchFlights(flights);

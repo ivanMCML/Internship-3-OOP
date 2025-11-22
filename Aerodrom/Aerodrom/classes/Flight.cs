@@ -92,19 +92,19 @@ namespace Aerodrom.classes
             }
         }
 
-        private List<CrewMember> _crewMembers = new();
-        public List<CrewMember> CrewMembers
+        private Crew _crew;
+        public Crew Crew
         {
-            get => _crewMembers;
+            get => _crew;
             set
             {
-                _crewMembers = value;
+                _crew = value;
                 Touch();
             }
         }
 
         public Flight(string name, DateTime departureTime, DateTime arrivalTime, string from, string to,
-                      double distance, Dictionary<Category, int> categoryOccupancy, Plane plane, List<CrewMember> crewMembers) : base()
+                      double distance, Dictionary<Category, int> categoryOccupancy, Plane plane, Crew crew) : base()
         {
             Name = name;
             DepartureTime = departureTime;
@@ -115,7 +115,7 @@ namespace Aerodrom.classes
             CategoryOccupancy = categoryOccupancy;
             Plane = plane;
             Plane.AddFlight();
-            CrewMembers = crewMembers;
+            Crew = crew;
         }
 
         public void PrintFlightForPassenger()
